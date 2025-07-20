@@ -1,0 +1,24 @@
+name: Automated Table QA
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  scrape_and_sum:
+    name: Sum Tables QA (23f2004115@ds.study.iitm.ac.in)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies (playwright + browser)
+        run: |
+          npm install
+          npx playwright install --with-deps
+      - name: Run sum_tables.js (23f2004115@ds.study.iitm.ac.in)
+        run: node sum_tables.js
